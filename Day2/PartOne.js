@@ -1,3 +1,6 @@
+// Solution for day 2 part 1 
+// Puzzle: https://adventofcode.com/2023/day/2
+
 const fs = require('node:fs');
 const data = fs.readFileSync('input.txt', 'utf8').toString().trim().split('\n');
 

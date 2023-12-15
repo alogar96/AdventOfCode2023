@@ -2,8 +2,7 @@
 // Puzzle: https://adventofcode.com/2023/day/15
 
 const fs = require('node:fs');
-const data = fs.readFileSync('input.txt', 'utf8').toString().trim().replaceAll("\r\n", "").split(",")
-
+const data = fs.readFileSync('input.txt', 'utf8').trim().split(",")
 let result = 0;
 
 function hash(value, code) {

@@ -1,4 +1,4 @@
-// Solution for day 5 part 1 
+// Solution for day 5 part 2 
 // Puzzle: https://adventofcode.com/2023/day/5
 
 const fs = require('node:fs');
@@ -19,6 +19,21 @@ function hash(seed, arr) {
     return -1;
 }
 
+// Find min seed location
+function findLoc(seed) {
+    let s = seed;
+    for (let map in maps) {
+        for (let set in maps[map]) {
+            let newS = hash(s, maps[map][set]);
+            if (newS != -1) {
+                s = newS;
+                break;
+            }
+        }
+    }
+    return s;
+}
+
 // Parse maps
 for (let row = 1; row < data.length; row++ ) {
     if (data[row] == "") {
@@ -34,31 +49,20 @@ for (let row = 1; row < data.length; row++ ) {
     }
 }
 
-// Parse seeds
-let seeds = [];
+// Brute force ranges
 for (let i = 0; i < seedData.length; i = i + 2) {
-    for (let j = seedData[i]; j < seedData[i] + seedData[i+1]; j++) {
-        seeds.push(j)
-    }
-}
-
-/*
-// Map seeds
-seeds.forEach(seed => {
-    let s = seed;
-    for (let map in maps) {
-        for (let set in maps[map]) {
-            let newS = hash(s, maps[map][set]);
-            if (newS != -1) {
-                s = newS;
-                break;
-            }
+    let locMin = Infinity;
+    let n = seedData[i];
+    while (n < seedData[i]+seedData[i+1]) {
+        loc = findLoc(n);
+        if (loc < locMin) {
+            locMin = loc;
         }
+        n++;
     }
-    if (s < result)
-        result = s;
-})
-*/
+    if (locMin < result)
+        result = locMin;
+}
 
 // Print result
 console.log(result);
